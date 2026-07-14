@@ -20,7 +20,7 @@ export default function Login() {
         localStorage.setItem('username', res.data.username)
         localStorage.setItem('realName', res.data.realName)
         message.success('登录成功')
-        const rolePath = { STUDENT: '/student', TEACHER: '/teacher', LEADER: '/leader', ADMIN: '/' }
+        const rolePath = { STUDENT: '/student', TEACHER: '/teacher', LEADER: '/leader', ADMIN: '/admin' }
         navigate(rolePath[res.data.role] || '/')
       } else {
         message.error(res.message)

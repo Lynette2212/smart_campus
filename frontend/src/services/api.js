@@ -28,8 +28,10 @@ export const register = (data) => api.post('/auth/register', data)
 // 通用
 export const getAnnouncements = (type) => api.get('/common/announcements', { params: { type } })
 export const getAnnouncement = (id) => api.get(`/common/announcements/${id}`)
+export const createAnnouncement = (data) => api.post('/common/announcements', data)
 export const getNews = (category) => api.get('/common/news', { params: { category } })
 export const getNewsDetail = (id) => api.get(`/common/news/${id}`)
+export const createNews = (data) => api.post('/common/news', data)
 export const getCourses = (params) => api.get('/common/courses', { params })
 export const getCourse = (id) => api.get(`/common/courses/${id}`)
 

@@ -4,6 +4,7 @@ import Login from './pages/common/Login'
 import StudentLayout from './components/StudentLayout'
 import TeacherLayout from './components/TeacherLayout'
 import LeaderLayout from './components/LeaderLayout'
+import AdminLayout from './components/AdminLayout'
 import StudentDashboard from './pages/student/StudentDashboard'
 import MyCourses from './pages/student/MyCourses'
 import MyGrades from './pages/student/MyGrades'
@@ -14,6 +15,9 @@ import GradeManage from './pages/teacher/GradeManage'
 import LeaderDashboard from './pages/leader/LeaderDashboard'
 import StudentManage from './pages/leader/StudentManage'
 import TeacherManage from './pages/leader/TeacherManage'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import AnnouncementManage from './pages/admin/AnnouncementManage'
+import NewsManage from './pages/admin/NewsManage'
 import Home from './pages/common/Home'
 
 const PrivateRoute = ({ children, role }) => {
@@ -44,6 +48,11 @@ function App() {
         <Route index element={<LeaderDashboard />} />
         <Route path="students" element={<StudentManage />} />
         <Route path="teachers" element={<TeacherManage />} />
+      </Route>
+      <Route path="/admin/*" element={<PrivateRoute role="ADMIN"><AdminLayout /></PrivateRoute>}>
+        <Route index element={<AdminDashboard />} />
+        <Route path="announcements" element={<AnnouncementManage />} />
+        <Route path="news" element={<NewsManage />} />
       </Route>
     </Routes>
   )
