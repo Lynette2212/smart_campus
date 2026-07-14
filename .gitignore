@@ -1,0 +1,21 @@
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Java
+target/
+*.class
+
+# Frontend
+frontend/node_modules/
+frontend/.idea/
+
+# H2 Database
+data/
+
+# Misc
+.aicoding-chat-workspace
+*.log
