@@ -33,6 +33,8 @@ export default function Home() {
       setModalData(res.data)
       setModalType('news')
       setModalVisible(true)
+      // 实时更新列表中该新闻的浏览次数
+      setNews(prev => prev.map(item => item.id === id ? { ...item, viewCount: res.data.viewCount } : item))
     }
   }
 
