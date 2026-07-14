@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu, Button, Typography } from 'antd'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { HomeOutlined, BookOutlined, ScheduleOutlined, TrophyOutlined, LogoutOutlined } from '@ant-design/icons'
+import { HomeOutlined, BookOutlined, ScheduleOutlined, TrophyOutlined, TableOutlined, LogoutOutlined } from '@ant-design/icons'
 
 const { Header, Sider, Content } = Layout
 const { Title } = Typography
@@ -15,6 +15,7 @@ export default function StudentLayout() {
     { key: '/student', icon: <HomeOutlined />, label: '首页' },
     { key: '/student/courses', icon: <BookOutlined />, label: '课程列表' },
     { key: '/student/my-courses', icon: <ScheduleOutlined />, label: '我的选课' },
+    { key: '/student/schedule', icon: <TableOutlined />, label: '课程表' },
     { key: '/student/grades', icon: <TrophyOutlined />, label: '我的成绩' },
   ]
 

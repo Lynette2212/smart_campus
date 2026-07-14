@@ -9,6 +9,7 @@ import StudentDashboard from './pages/student/StudentDashboard'
 import MyCourses from './pages/student/MyCourses'
 import MyGrades from './pages/student/MyGrades'
 import CourseList from './pages/student/CourseList'
+import Schedule from './pages/student/Schedule'
 import TeacherDashboard from './pages/teacher/TeacherDashboard'
 import MyTeachCourses from './pages/teacher/MyTeachCourses'
 import GradeManage from './pages/teacher/GradeManage'
@@ -38,6 +39,7 @@ function App() {
         <Route path="courses" element={<CourseList />} />
         <Route path="my-courses" element={<MyCourses />} />
         <Route path="grades" element={<MyGrades />} />
+        <Route path="schedule" element={<Schedule />} />
       </Route>
       <Route path="/teacher/*" element={<PrivateRoute role="TEACHER"><TeacherLayout /></PrivateRoute>}>
         <Route index element={<TeacherDashboard />} />
