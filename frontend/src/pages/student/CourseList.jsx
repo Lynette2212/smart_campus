@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, message, Typography, Tag } from 'antd'
+import { Table, Button, message, Typography, Tag, Input } from 'antd'
 import { getCourses, selectCourse } from '../../services/api'
+import { SearchOutlined } from '@ant-design/icons'
 
 export default function CourseList() {
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(false)
+  const [searchText, setSearchText] = useState('')
 
   const load = () => {
     setLoading(true)
@@ -19,6 +21,12 @@ export default function CourseList() {
     }).catch(err => message.error(err.message))
   }
 
+  const filteredCourses = searchText
+    ? courses.filter(c => c.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+                        c.code?.toLowerCase().includes(searchText.toLowerCase()) ||
+                        c.teacher?.realName?.toLowerCase().includes(searchText.toLowerCase()))
+    : courses
+
   const columns = [
     { title: '课程名称', dataIndex: 'name' },
     { title: '课程代码', dataIndex: 'code' },
@@ -28,11 +36,30 @@ export default function CourseList() {
     { title: '学期', dataIndex: 'semester' },
     { title: '上课时间', dataIndex: 'schedule' },
     { title: '教室', dataIndex: 'classroom' },
-    { title: '人数', render: (_, r) => `${r.currentStudents}/${r.maxStudents}` },
+    { title: '人数', render: (_, r) => <Tag color={r.currentStudents >= r.maxStudents ? 'red' : 'green'}>{r.currentStudents}/{r.maxStudents}</Tag> },
     { title: '操作', render: (_, r) => (
       <Button type="primary" size="small" disabled={r.currentStudents >= r.maxStudents} onClick={() => handleSelect(r.id)}>选课</Button>
     )}
   ]
 
-  return <div><Typography.Title level={4}>课程列表</Typography.Title><Table columns={columns} dataSource={courses} rowKey="id" loading={loading} /></div>
+  return (
+    <div>
+      <Typography.Title level={4}>课程列表</Typography.Title>
+      <Input
+        placeholder="搜索课程名称、代码或教师"
+        prefix={<SearchOutlined />}
+        value={searchText}
+        onChange={e => setSearchText(e.target.value)}
+        style={{ width: 300, marginBottom: 16 }}
+        allowClear
+      />
+      <Table
+        columns={columns}
+        dataSource={filteredCourses}
+        rowKey="id"
+        loading={loading}
+        pagination={{ pageSize: 10, showSizeChanger: true, showTotal: t => `共 ${t} 门课程` }}
+      />
+    </div>
+  )
 }

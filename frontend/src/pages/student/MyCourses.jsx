@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, message, Typography, Popconfirm } from 'antd'
+import { Table, Button, message, Typography, Popconfirm, Input } from 'antd'
 import { getMyCourses, dropCourse } from '../../services/api'
+import { SearchOutlined } from '@ant-design/icons'
 
 export default function MyCourses() {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [searchText, setSearchText] = useState('')
 
   const load = () => {
     setLoading(true)
@@ -18,6 +20,11 @@ export default function MyCourses() {
       else message.error(res.message)
     })
   }
+
+  const filteredData = searchText
+    ? data.filter(r => r.course?.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+                      r.course?.code?.toLowerCase().includes(searchText.toLowerCase()))
+    : data
 
   const columns = [
     { title: '课程名称', render: (_, r) => r.course?.name },
@@ -33,5 +40,24 @@ export default function MyCourses() {
     )}
   ]
 
-  return <div><Typography.Title level={4}>我的选课</Typography.Title><Table columns={columns} dataSource={data} rowKey="id" loading={loading} /></div>
+  return (
+    <div>
+      <Typography.Title level={4}>我的选课</Typography.Title>
+      <Input
+        placeholder="搜索课程名称或代码"
+        prefix={<SearchOutlined />}
+        value={searchText}
+        onChange={e => setSearchText(e.target.value)}
+        style={{ width: 300, marginBottom: 16 }}
+        allowClear
+      />
+      <Table
+        columns={columns}
+        dataSource={filteredData}
+        rowKey="id"
+        loading={loading}
+        pagination={{ pageSize: 10, showSizeChanger: true, showTotal: t => `共 ${t} 门课程` }}
+      />
+    </div>
+  )
 }
